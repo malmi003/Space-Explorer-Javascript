@@ -1,0 +1,77 @@
+/* 
+light gray: rgba(206, 215, 206, 1);
+purple navy: rgba(61, 86, 127, 1);
+arsenic: rgba(63, 63, 68, 1);
+mountbatten pink: rgba(161, 137, 142, 1);
+umber(light brown): rgba(95, 81, 76, 1); */
+
+
+
+/* --------------------global------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+  }
+body {
+    background:linear-gradient(0deg,rgba(61, 86, 127, .2),rgba(61, 86, 127, .2)),url("../images/background-bryan-goff-360297-unsplash.jpg");
+    background-size: cover;
+    color: rgba(206, 215, 206, 1);
+    font-family: 'Exo 2', sans-serif;
+    margin-bottom: 120px; /* Margin bottom by footer height */
+
+}
+h3 {
+    font-size: 1.5em;
+}
+
+/* --------------------header------------------- */
+header h1 {
+    font-style: italic;
+    /* font-family: 'Orbitron', sans-serif; */
+    font-size: 3.5em;
+}
+
+/* --------------------footer------------------- */
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* height: 100px; Set the fixed height of the footer here */
+    /* line-height: 100px; Vertically center the text there  */
+    background: rgba(63, 63, 68, .3)
+  }
+footer p:first-child {
+    margin-top: 1em;
+}
+
+/* --------------------main------------------- */
+#rules {
+    background: rgba(95, 81, 76, .6)
+}
+#rules li {
+    margin-bottom: 1em;
+}
+#totalTarget, #totalScore {
+    background: rgba(161, 137, 142, .5);
+    
+}
+#targetNumber, #score {
+    font-size: 3em;
+}
+#winCount, #lossCount {
+    font-size: 2em;
+}
+#icons button {
+    margin: .5em;
+    padding: .5em;
+    background: none;
+    border: 3px solid rgba(206, 215, 206, .5);
+    border-radius: 6px;
+}
+#scoreboard {
+    background: rgba(61, 86, 127, .5);
+}
+#scoreboard h3, #scoreboard p {
+    /* display: inline; */
+}
