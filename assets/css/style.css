@@ -75,3 +75,7 @@ footer p:first-child {
 #scoreboard h3, #scoreboard p {
     /* display: inline; */
 }
+#scoreboard li {
+    list-style: none;
+    display: inline-block;
+}

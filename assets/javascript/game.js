@@ -17,6 +17,8 @@
     - * loss sends them back to earth prematurely, displays loser message and icon.
 - * need to add function that changes "distance" between planets so can move along it
 
+
+- * if winnerIndex = value, add active class, else remove active class
 */
 var loserArray = [
     {
@@ -49,38 +51,47 @@ var winnerArray = [
     {
         message: "Ready for lift off!",
         planetIcon: "planet-earth.png",
+        planetIconSmall: "planet-earth24.png",
     },
     {
         message: "Eyes towards the moon!",
         planetIcon: "moon.png",
+        planetIconSmall: "moon24.png",
     },
     {
         message: "Nice! Onto the red planet.",
         planetIcon: "mars.png",
+        planetIconSmall: "mars24.png",
     },
     {
         message: "Good work! Jupiter is on the horizon.",
         planetIcon: "jupiter.png",
+        planetIconSmall: "jupiter24.png",
     },
     {
         message: "You can really add, huh? Onto Saturn with the rings.",
         planetIcon: "saturn.png",
+        planetIconSmall: "saturn24.png",
     },
     {
         message: "Woo! 7th planet from the sun, headed to Neptune next!",
         planetIcon: "uranus.png",
+        planetIconSmall: "uranus24.png",
     },
     {
         message: "Way to go! Since we're already out here might as well check out Neptune.",
         planetIcon: "neptune.png",
+        planetIconSmall: "neptune24.png",
     },
     {
         message: "Look how far you've come! Poor little dwarf planet Pluto on the edge of our solar system.",
         planetIcon: "pluto.png",
+        planetIconSmall: "pluto24.png",
     },
     {
         message: "Wow! You're too good for this solar system. Can you do it one more time?",
         planetIcon: "milky-way.png",
+        planetIconSmall: "milky-way.png",
     },
     {
         message: "Congratulations, Space Explorer!<br>You're the aliens' problem now.",
@@ -153,14 +164,13 @@ $(".btn").on("click", function () {
     // - * reset game
     if (totalScore === randomTargetNumber) {
         currentWinArrayIndex++;
-        console.log(currentWinArrayIndex);
         $("#status").html(winnerArray[currentWinArrayIndex].message);
         $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
         $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
         $("#statusIcon").attr("src", "");
         winCount++;
         $("#winCount").html(winCount);
-        
+
         var nextPlanetSrc = $("#nextPlanet").attr("src");
         if (nextPlanetSrc === "assets/images/astronaut1.png") {
             $("#currentPlanet").addClass("d-none");
@@ -183,14 +193,35 @@ $(".btn").on("click", function () {
         lossCount++;
         $("#lossCount").html(lossCount);
 
-        
+
         reset();
     }
+
+    console.log(currentWinArrayIndex);
+    
+
+    //if value of li === currentWinArrayIndex add an active class to it
+    
+//need to grab value of li for each instance of it
+//or need index of each li
+
+///...............this is a mess....................
+    var startingLi = $("ol li:last-child").val();
+    console.log(startingLi);
+    var li = $("ol li")
+    var liLength = li.length;
+    for (var i = 0; i < liLength; i++) {
+        startingLi.addClass("active")
+        // if () {
+        //     .addClass("active")
+        // } else {
+        //     $("ol li").i.removeClass("active")
+
+        // }
+
+    }
+
 })
-
-
-
-
 
 
 
