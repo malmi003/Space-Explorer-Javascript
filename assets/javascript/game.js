@@ -1,24 +1,10 @@
 /*
 
-- onload, generate 1 random number between 19-120 & display on page 
-    - * make the distance between ship and moon that many spaces
-- generate 4 more random numbers between 1-12 and assign to icons1-4
-- when player clicks an icon, that number is added to their score
-
-- * if their score is <= the targetNumber, keep guessing and adding click numbers to score
-    - * move space ship towards moon same number of space they guessed
-
-- * if their score exceeds the targetNumber they lose
-    - * add to loss count, display loss message, reset the numbers, a meteor shower made them start mission over
-
-- * if their score == target number, they win, add to win count, display win message, reset game
-
-- * graphic makes it to moon on win and then displays something clever, maybe change out planets so go from earth to moon, mars, jupiter, uranus, 
-    - * loss sends them back to earth prematurely, displays loser message and icon.
+- * make the distance between ship and moon that many spaces
+- * move space ship towards moon same number of space they guessed
 - * need to add function that changes "distance" between planets so can move along it
-
-
 - * if winnerIndex = value, add active class, else remove active class
+- * add reset button once win
 */
 var loserArray = [
     {
@@ -26,7 +12,7 @@ var loserArray = [
         icon: "alien.png",
     },
     {
-        message: "Whoops! Your star map upside down. I think we're going in circles.",
+        message: "Whoops! Your star map was upside down. I think we're going in circles.",
         icon: "big-dipper.png",
     },
     {
@@ -54,7 +40,7 @@ var winnerArray = [
         planetIconSmall: "planet-earth24.png",
     },
     {
-        message: "Eyes towards the moon!",
+        message: "Eyes toward the moon!",
         planetIcon: "moon.png",
         planetIconSmall: "moon24.png",
     },
@@ -69,7 +55,7 @@ var winnerArray = [
         planetIconSmall: "jupiter24.png",
     },
     {
-        message: "You can really add, huh? Onto Saturn with the rings.",
+        message: "Great adding! Onto Saturn with the rings.",
         planetIcon: "saturn.png",
         planetIconSmall: "saturn24.png",
     },
@@ -84,7 +70,7 @@ var winnerArray = [
         planetIconSmall: "neptune24.png",
     },
     {
-        message: "Look how far you've come! Poor little dwarf planet Pluto on the edge of our solar system.",
+        message: "Look how far you've come! Downgraded from the planets, not our hearts - next is Pluto.",
         planetIcon: "pluto.png",
         planetIconSmall: "pluto24.png",
     },
@@ -94,8 +80,9 @@ var winnerArray = [
         planetIconSmall: "milky-way.png",
     },
     {
-        message: "Congratulations, Space Explorer!<br>You're the aliens' problem now.",
+        message: "Congratulations, Space Explorer!<br><br>We've reached the end of OUR journey. You're the aliens' problem now.",
         planetIcon: "astronaut1.png",
+        planetIconSmall: "astronaut24.png",
     }
 ]
 
@@ -106,21 +93,21 @@ var totalScore = 0;
 var winCount = 0;
 var lossCount = 0;
 var currentWinArrayIndex = 1;
-var currentLoserArrayIndex = getLoserArrayIndex();;
+var currentLoserArrayIndex = 0;
 //- * make the distance between ship and moon that many spaces
 
 // ----------------defining functions-----------------
 function assignTargetNumber() {
     //FOR TESTING PURPOSES!
-    // randomTargetNumber = Math.floor(Math.random() * 102) + 19;
-    randomTargetNumber = Math.floor(Math.random() * 10);
+    // randomTargetNumber = Math.floor(Math.random() * 10);
+    randomTargetNumber = Math.floor(Math.random() * 102) + 19;
     $("#targetNumber").html(randomTargetNumber);
 }
 
 function getRandomIconValue() {
     //FOR TESTING PURPOSES!
-    // randomIconNumber = Math.floor(Math.random() * 12) + 1;
-    randomIconNumber = Math.floor(Math.random() * 4);
+    // randomIconNumber = Math.floor(Math.random() * 4);
+    randomIconNumber = Math.floor(Math.random() * 12) + 1;
     return randomIconNumber;
 }
 function assignIconValues() {
@@ -140,21 +127,76 @@ function reset() {
     assignTargetNumber();
     assignIconValues();
     totalScore = 0;
-    $("#score").html(0);
+    $("#score").html(totalScore);
 }
+
+$("#resetButton").on("click", function () {
+    randomTargetNumber = 0;
+    randomIconNumber = 0;
+    winCount = 0;
+    lossCount = 0;
+    currentWinArrayIndex = 1;
+    reset();
+
+    highlightCurrentPlanet();
+
+    $("#winCount").html(winCount);
+    $("#lossCount").html(lossCount);
+    $("#status").html(winnerArray[currentWinArrayIndex].message);
+    $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
+    $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
+    $("#resetButtonSection").addClass("d-none");
+    $("#totalTarget").removeClass("d-none");
+    $("#totalScore").removeClass("d-none");
+    $("#currentPlanet").removeClass("d-none");
+    $("#rocket").removeClass("d-none");
+    $("#nextPlanet").removeClass("moveRocketPerson");
+
+})
+
+
+//  ...................reset button function...............
+function highlightCurrentPlanet() {
+    var currentPlanetId = "#planet-" + (currentWinArrayIndex - 1);
+    var currentLiItem = $(currentPlanetId);
+    // var currentLiItemId = currentLiItem.attr("id");
+
+    for (var i = 0; i < (winnerArray.length - 1); i++) {
+        var liItem = "#planet-" + i;
+        console.log(liItem);
+        console.log(currentPlanetId);
+
+        if (liItem == currentPlanetId) {
+            currentLiItem.addClass("active");
+        } else {
+            console.log("stuff");
+            for (var y = 0; y < (winnerArray.length - 1); y++) {
+                var pastPlanet = "#planet-" + i;
+                console.log(pastPlanet);
+                $(pastPlanet).removeClass("active")
+            }
+        }
+    }
+}
+
+
+
+
 
 // ----------------playing the game code-----------------
 
 assignTargetNumber();
 assignIconValues(getRandomIconValue());
+highlightCurrentPlanet();
+currentLoserArrayIndex = getLoserArrayIndex();
 // $("#status").html(winnerArray[currentWinArrayIndex].message);
 $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
 $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
 
-$(".btn").on("click", function () {
+$(".icon").on("click", function () {
     totalScore += parseInt($(this).val());
     $("#score").html(totalScore);
-
+    currentLoserArrayIndex = getLoserArrayIndex();
     // if their score is <= the targetNumber, keep guessing and adding click numbers to score
     // - * move space ship towards moon same number of space they guessed
 
@@ -174,7 +216,11 @@ $(".btn").on("click", function () {
         var nextPlanetSrc = $("#nextPlanet").attr("src");
         if (nextPlanetSrc === "assets/images/astronaut1.png") {
             $("#currentPlanet").addClass("d-none");
-
+            $("#rocket").addClass("d-none");
+            $("#resetButtonSection").removeClass("d-none");
+            $("#nextPlanet").addClass("moveRocketPerson");
+            $("#totalTarget").addClass("d-none");
+            $("#totalScore").addClass("d-none");
         } else {
             reset();
         }
@@ -197,29 +243,7 @@ $(".btn").on("click", function () {
         reset();
     }
 
-    console.log(currentWinArrayIndex);
-    
-
-    //if value of li === currentWinArrayIndex add an active class to it
-    
-//need to grab value of li for each instance of it
-//or need index of each li
-
-///...............this is a mess....................
-    var startingLi = $("ol li:last-child").val();
-    console.log(startingLi);
-    var li = $("ol li")
-    var liLength = li.length;
-    for (var i = 0; i < liLength; i++) {
-        startingLi.addClass("active")
-        // if () {
-        //     .addClass("active")
-        // } else {
-        //     $("ol li").i.removeClass("active")
-
-        // }
-
-    }
+    highlightCurrentPlanet();
 
 })
 

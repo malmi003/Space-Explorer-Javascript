@@ -29,27 +29,38 @@
                     <article>
                         <div class="row">
                             <section id="rules" class="col-sm-12 p-4">
-                                <ul>
-                                    <!-- <li>
-                                        Your mission should you choose to accept it, is go explore the galaxy one planet at a time! 
-                                    </li> -->
-                                    <li>
-                                        You will be given a random number at the start of the game.
-                                    </li>
-                                    <li>
-                                        There are four space symbols below. By clicking on a space symbol you will add a specific amount of points to your total
-                                        score.
-                                    </li>
-                                    <li>
-                                        You win the game by matching your total score to the random number. You lose if your total score goes above the random number.
-                                    </li>
-                                    <li>
-                                        The value of each space symbol is hidden from you, but you can discover it by clicking it.
-                                    </li>
-                                    <li>
-                                        Each time the game starts, the game will change the value of each space symbol.
-                                    </li>
-                                </ul>
+
+                                <p>
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#rules2" role="button" aria-expanded="false" aria-controls="collapseRules">
+                                        Directions
+                                    </a>
+                                </p>
+                                <div class="collapse" id="rules2">
+                                    <ul class="card card-body">
+                                        <!-- <li>
+                                                        Your mission should you choose to accept it, is go explore the galaxy one planet at a time! 
+                                                    </li> -->
+                                        <li>
+                                            You will be given a random number at the start of the game.
+                                        </li>
+                                        <li>
+                                            There are four space symbols below. By clicking on a space symbol you will add a specific amount of points to your total
+                                            score.
+                                        </li>
+                                        <li>
+                                            You win the game by matching your total score to the random number. You lose if your total score goes above the random number.
+                                        </li>
+                                        <li>
+                                            The value of each space symbol is hidden from you, but you can discover it by clicking it.
+                                        </li>
+                                        <li>
+                                            Each time the game starts, the game will change the value of each space symbol.
+                                        </li>
+                                        <li>
+                                            Win enough times to get to infinity and beyond (the galaxy), and you win!
+                                        </li>
+                                    </ul>
+                                </div>
                             </section>
                         </div>
                         <div class="row">
@@ -61,63 +72,66 @@
                                 <h3 id="scoreHeader">Your total score is:</h3>
                                 <p id="score">0</p>
                             </section>
-
+                            <section id="resetButtonSection" class="col-md-12 text-center p-3 d-none mt-2">
+                                <button id="resetButton" class="btn-primary p-3">Reset</button>
+                            </section>
                         </div>
                         <div class="row">
                             <section class="col-sm-12 text-center mt-2" id="icons">
-                                <button id="icon-1" class="btn" value=0>
+                                <button id="icon-1" class="btn icon" value=0>
                                     <img id="firstIcon" src="assets/images/telescope.png" alt="telescope">
                                 </button>
-                                <button id="icon-2" class="btn" value=0>
+                                <button id="icon-2" class="btn icon" value=0>
                                     <img id="firstIcon" src="assets/images/moon-rover.png" alt="moon-rover">
                                 </button>
-                                <button id="icon-3" class="btn" value=0>
+                                <button id="icon-3" class="btn icon" value=0>
                                     <img id="firstIcon" src="assets/images/astronaut.png" alt="black-hole">
                                 </button>
-                                <button id="icon-4" class="btn" value=0>
+                                <button id="icon-4" class="btn icon" value=0>
                                     <img id="firstIcon" src="assets/images/satellite.png" alt="satellite">
                                 </button>
                             </section>
                         </div>
                         <div class="row">
                             <section id="scoreboard" class="col-sm-12 p-3 text-center mt-2">
-                                <h3 id="status" class="font-italic">Ready for lift off!!!</h3>
+                                <h3 id="status" class="font-italic">Ready for lift off!</h3>
                                 <img id="statusIcon" src="">
                                 <h3 class="mt-4">Wins:</h3>
                                 <p id="winCount">0</p>
                                 <h3>Losses: </h3>
                                 <p id="lossCount">0</p>
                                 <ol>
-                                    <li value="0" class="pr-3">
+                                    <li id="planet-0" class="pr-3">
                                         <img src="assets/images/planet-earth24.png">
                                     </li>
-                                    <li value="1" class="pr-3">
+                                    <li id="planet-1" class="pr-3">
                                         <img src="assets/images/moon24.png">
                                     </li>
-                                    <li value="2" class="pr-3">
+                                    <li id="planet-2" class="pr-3">
                                         <img src="assets/images/mars24.png">
                                     </li>
-                                    <li value="3" class="pr-3">
+                                    <li id="planet-3" class="pr-3">
                                         <img src="assets/images/jupiter24.png">
                                     </li>
-                                    <li value="4" class="pr-3">
+                                    <li id="planet-4" class="pr-3">
                                         <img src="assets/images/saturn24.png">
                                     </li>
-                                    <li value="5" class="pr-3">
+                                    <li id="planet-5" class="pr-3">
                                         <img src="assets/images/uranus24.png">
                                     </li>
-                                    <li value="6" class="pr-3">
+                                    <li id="planet-6" class="pr-3">
                                         <img src="assets/images/neptune24.png">
                                     </li>
-                                    <li value="7" class="pr-3">
+                                    <li id="planet-7" class="pr-3">
                                         <img src="assets/images/pluto24.png">
                                     </li>
-                                    <li value="8" class="pr-3">
+                                    <li id="planet-8" class="pr-3">
                                         <img src="assets/images/milky-way24.png">
                                     </li>
+                                    <li id="planet-9" class="pr-3">
+                                        <img src="assets/images/astronaut24.png">
+                                    </li>
                                 </ol>
-
-
 
                             </section>
                         </div>
@@ -126,9 +140,10 @@
                 </div>
 
             </div>
-            <div id="planetDisplay" class="col-md-4 my-3">
-                <img id="nextPlanet">
-                <img id="currentPlanet">
+            <div id="planetDisplay" class="d-none d-md-block col-md-4 my-3 text-center">
+                <img id="nextPlanet" class="nextPlanet">
+                <img id="rocket" class="rocket" src="assets/images/rocket-ship-launch.png">
+                <img id="currentPlanet" class="currentPlanet">
             </div>
         </div>
         <footer class="footer text-center">
