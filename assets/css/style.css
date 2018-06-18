@@ -112,8 +112,9 @@ footer p:first-child {
 }
 #rocket {
     position:absolute;
-    bottom: 10em;
     right: 33.33%;
+    /* bottom: 1em; */
+    z-index: 1;
 }
 .moveRocketPerson {
     right: 0;

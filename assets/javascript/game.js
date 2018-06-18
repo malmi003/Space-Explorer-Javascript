@@ -3,8 +3,9 @@
 - * make the distance between ship and moon that many spaces
 - * move space ship towards moon same number of space they guessed
 - * need to add function that changes "distance" between planets so can move along it
-- * if winnerIndex = value, add active class, else remove active class
-- * add reset button once win
+
+for animation, can determine how many pixels down the top icon is (64px tall maybe, pluto is 32) and then to the top of the bottom icon. Determine how many pxs that is, then divide it by the targetNumber. Then move the rocket up by that many pixels each time.
+
 */
 var loserArray = [
     {
@@ -94,15 +95,23 @@ var winCount = 0;
 var lossCount = 0;
 var currentWinArrayIndex = 1;
 var currentLoserArrayIndex = 0;
-//- * make the distance between ship and moon that many spaces
+var additionValue = 0;
+//what I need to do first is reset starting location of rocket
+var currentPlanetY = 0;
+var newLocationOfRocket = 0;
+var distanceBetweenPlanets = 0;
+var distanceToMoveEach = 0;
+var distanceToMove = 0;
+var newLocationMove = "";
+    //- * make the distance between ship and moon that many spaces
 
-// ----------------defining functions-----------------
-function assignTargetNumber() {
-    //FOR TESTING PURPOSES!
-    // randomTargetNumber = Math.floor(Math.random() * 10);
-    randomTargetNumber = Math.floor(Math.random() * 102) + 19;
-    $("#targetNumber").html(randomTargetNumber);
-}
+    // ----------------defining functions-----------------
+    function assignTargetNumber() {
+        //FOR TESTING PURPOSES!
+        // randomTargetNumber = Math.floor(Math.random() * 10);
+        randomTargetNumber = Math.floor(Math.random() * 102) + 19;
+        $("#targetNumber").html(randomTargetNumber);
+    }
 
 function getRandomIconValue() {
     //FOR TESTING PURPOSES!
@@ -128,6 +137,19 @@ function reset() {
     assignIconValues();
     totalScore = 0;
     $("#score").html(totalScore);
+
+    ////left off here......
+    //after a page has been reset, need to reevaluate distance from planets and put rocket there plus a little extra
+
+    currentPlanetY = $("#currentPlanet").offset().top;
+    console.log(currentPlanetY)
+    distanceBetweenPlanets = currentPlanetY - $("#nextPlanet").offset().top;
+    
+    newLocationOfRocket = currentPlanetY;
+    $("#rocket").animate({top: newLocationOfRocket}, "fast")
+    console.log(newLocationOfRocket)
+    console.log($("#rocket").offset())
+    
 }
 
 $("#resetButton").on("click", function () {
@@ -151,59 +173,51 @@ $("#resetButton").on("click", function () {
     $("#currentPlanet").removeClass("d-none");
     $("#rocket").removeClass("d-none");
     $("#nextPlanet").removeClass("moveRocketPerson");
-
 })
 
-
-//  ...................reset button function...............
 function highlightCurrentPlanet() {
     var currentPlanetId = "#planet-" + (currentWinArrayIndex - 1);
     var currentLiItem = $(currentPlanetId);
-    // var currentLiItemId = currentLiItem.attr("id");
 
     for (var i = 0; i < (winnerArray.length - 1); i++) {
         var liItem = "#planet-" + i;
-        console.log(liItem);
-        console.log(currentPlanetId);
 
         if (liItem == currentPlanetId) {
             currentLiItem.addClass("active");
         } else {
-            console.log("stuff");
             for (var y = 0; y < (winnerArray.length - 1); y++) {
                 var pastPlanet = "#planet-" + i;
-                console.log(pastPlanet);
-                $(pastPlanet).removeClass("active")
+                $(pastPlanet).removeClass("active");
             }
         }
     }
 }
 
-
-
+function moveTheRocket() {
+    distanceToMoveEach = distanceBetweenPlanets / randomTargetNumber;
+    distanceToMove = distanceToMoveEach * additionValue;
+    newLocationOfRocket -= distanceToMove;
+    $("#rocket").animate({top: newLocationOfRocket}, "fast");
+}
 
 
 // ----------------playing the game code-----------------
 
-assignTargetNumber();
-assignIconValues(getRandomIconValue());
+reset();
 highlightCurrentPlanet();
 currentLoserArrayIndex = getLoserArrayIndex();
-// $("#status").html(winnerArray[currentWinArrayIndex].message);
 $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
 $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
 
+
 $(".icon").on("click", function () {
-    totalScore += parseInt($(this).val());
+    additionValue = parseInt($(this).val());
+    totalScore += additionValue;
     $("#score").html(totalScore);
     currentLoserArrayIndex = getLoserArrayIndex();
-    // if their score is <= the targetNumber, keep guessing and adding click numbers to score
-    // - * move space ship towards moon same number of space they guessed
+    
+    moveTheRocket();
 
-    // - * if their score exceeds the targetNumber they lose
-    //     - * add to loss count, display loss message, reset the numbers, a meteor shower made them start mission over
-
-    // - * reset game
     if (totalScore === randomTargetNumber) {
         currentWinArrayIndex++;
         $("#status").html(winnerArray[currentWinArrayIndex].message);
@@ -226,25 +240,21 @@ $(".icon").on("click", function () {
         }
 
     } else if (totalScore > randomTargetNumber) {
-        //display random loser message & icon, go back one planet, add to losses, reset
         if (currentWinArrayIndex > 1) {
             currentWinArrayIndex--;
         }
         getLoserArrayIndex();
-        console.log(currentWinArrayIndex);
         $("#status").html(loserArray[currentLoserArrayIndex].message);
         $("#statusIcon").attr("src", "assets/images/" + loserArray[currentLoserArrayIndex].icon);
         $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
         $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
         lossCount++;
         $("#lossCount").html(lossCount);
-
-
         reset();
     }
 
     highlightCurrentPlanet();
-
+    
 })
 
 
