@@ -96,14 +96,13 @@ var lossCount = 0;
 var currentWinArrayIndex = 1;
 var currentLoserArrayIndex = 0;
 var additionValue = 0;
-//what I need to do first is reset starting location of rocket
+
 var currentPlanetY = 0;
 var newLocationOfRocket = 0;
 var distanceBetweenPlanets = 0;
 var distanceToMoveEach = 0;
 var distanceToMove = 0;
 var newLocationMove = "";
-    //- * make the distance between ship and moon that many spaces
 
     // ----------------defining functions-----------------
     function assignTargetNumber() {
@@ -142,13 +141,19 @@ function reset() {
     //after a page has been reset, need to reevaluate distance from planets and put rocket there plus a little extra
 
     currentPlanetY = $("#currentPlanet").offset().top;
-    console.log(currentPlanetY)
+    console.log(currentPlanetY);
+    console.log($("#currentPlanet").offset().top);
+    
+    $("#rocket").offset({top: currentPlanetY});
+    
     distanceBetweenPlanets = currentPlanetY - $("#nextPlanet").offset().top;
     
     newLocationOfRocket = currentPlanetY;
     $("#rocket").animate({top: newLocationOfRocket}, "fast")
-    console.log(newLocationOfRocket)
-    console.log($("#rocket").offset())
+    // console.log(newLocationOfRocket)
+    console.log(currentPlanetY);
+    console.log($("#rocket").offset().top)
+    console.log($("#currentPlanet").offset().top)
     
 }
 
@@ -204,6 +209,10 @@ function moveTheRocket() {
 // ----------------playing the game code-----------------
 
 reset();
+
+// var rocketInitialize = currentPlanetY - 196;
+// $("#rocket").offset({top: rocketInitialize});
+
 highlightCurrentPlanet();
 currentLoserArrayIndex = getLoserArrayIndex();
 $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);

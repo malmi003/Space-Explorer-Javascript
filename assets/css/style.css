@@ -6,7 +6,6 @@ mountbatten pink: rgba(161, 137, 142, 1);
 umber(light brown): rgba(95, 81, 76, 1); */
 
 
-
 /* --------------------global------------------- */
 html {
     position: relative;
@@ -100,6 +99,16 @@ footer p:first-child {
     border: 4px solid rgba(161, 137, 142, 1);
     border-radius: 50%;
 }
+#resetButtonSection {
+    background: rgba(161, 137, 142, .5);
+}
+#resetButton {
+    background: rgba(61, 86, 127, 1)
+}
+#resetButton:hover {
+    background: rgba(61, 86, 127, .5);
+    border-color: rgba(61, 86, 127, 1);
+}
 .currentPlanet {
     position:absolute;
     bottom: 1em;
@@ -119,14 +128,4 @@ footer p:first-child {
 .moveRocketPerson {
     right: 0;
     margin-top: 50%;
-}
-#resetButtonSection {
-    background: rgba(161, 137, 142, .5);
-}
-#resetButton {
-    background: rgba(61, 86, 127, 1)
-}
-#resetButton:hover {
-    background: rgba(61, 86, 127, .5);
-    border-color: rgba(61, 86, 127, 1);
 }
