@@ -1,12 +1,6 @@
-/*
 
-- * make the distance between ship and moon that many spaces
-- * move space ship towards moon same number of space they guessed
-- * need to add function that changes "distance" between planets so can move along it
+$(document).ready(function(){
 
-for animation, planet/rockets 64px tall maybe, pluto is 32
-
-*/
 var loserArray = [
     {
         message: "Uh oh! Trouble with the locals...better circle back.",
@@ -81,7 +75,7 @@ var winnerArray = [
         planetIconSmall: "milky-way.png",
     },
     {
-        message: "Congratulations, Space Explorer!<br><br>We've reached the end of OUR journey. You're the aliens' problem now.",
+        message: "Congratulations, Space Explorer!<br><br>You've reached the end of OUR journey. You're the aliens' problem now.",
         planetIcon: "astronaut1.png",
         planetIconSmall: "astronaut24.png",
     }
@@ -106,18 +100,19 @@ var newLocationMove = "";
 
 // ----------------defining functions-----------------
 function assignTargetNumber() {
-    //FOR TESTING PURPOSES!
-    randomTargetNumber = Math.floor(Math.random() * 10);
-    // randomTargetNumber = Math.floor(Math.random() * 102) + 19;
+    //FOR TESTING PURPOSES (lowers the numbers)
+    // randomTargetNumber = Math.floor(Math.random() * 10)+1;
+    randomTargetNumber = Math.floor(Math.random() * 102) + 19;
     $("#targetNumber").html(randomTargetNumber);
 }
 
 function getRandomIconValue() {
-    //FOR TESTING PURPOSES!
-    randomIconNumber = Math.floor(Math.random() * 4);
-    // randomIconNumber = Math.floor(Math.random() * 12) + 1;
+    //FOR TESTING PURPOSES (lowers the numbers)
+    // randomIconNumber = Math.floor(Math.random() * 3)+1;
+    randomIconNumber = Math.floor(Math.random() * 12) + 1;
     return randomIconNumber;
 }
+
 function assignIconValues() {
     // * better way to pull this array vs just hard coding it?
     var iconArray = [$("#icon-1"), $("#icon-2"), $("#icon-3"), $("#icon-4")]
@@ -131,20 +126,14 @@ function getLoserArrayIndex() {
     return loserIndex;
 }
 
-function grabCurrentPlanetY() {
-    currentPlanetY = $("#currentPlanet").offset().top;
-    return currentPlanetY;
-}
-
 function reset() {
     assignTargetNumber();
     assignIconValues();
     totalScore = 0;
     $("#score").html(totalScore);
 
-    ////left off here......
     
-    grabCurrentPlanetY();
+    currentPlanetY = $("#currentPlanet").offset().top;
     $("#rocket").offset({ top: currentPlanetY });
     distanceBetweenPlanets = currentPlanetY - $("#nextPlanet").offset().top;
     newLocationOfRocket = currentPlanetY;
@@ -179,13 +168,17 @@ function moveTheRocket() {
 
 
 // ----------------playing the game code-----------------
+ 
 
-highlightCurrentPlanet();
-currentLoserArrayIndex = getLoserArrayIndex();
-$("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
-$("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
-reset();
-$("#rocket").addClass("d-none");
+
+    highlightCurrentPlanet();
+    currentLoserArrayIndex = getLoserArrayIndex();
+    $("#nextPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex].planetIcon);
+    $("#currentPlanet").attr("src", "assets/images/" + winnerArray[currentWinArrayIndex - 1].planetIcon);
+
+    reset();
+
+
 
 //.................onclick.......................
 $(".icon").on("click", function () {
@@ -193,7 +186,7 @@ $(".icon").on("click", function () {
     totalScore += additionValue;
     $("#score").html(totalScore);
     currentLoserArrayIndex = getLoserArrayIndex();
-    
+
     moveTheRocket();
     $("#rocket").removeClass("d-none");
 
@@ -243,8 +236,7 @@ $("#resetButton").on("click", function () {
     winCount = 0;
     lossCount = 0;
     currentWinArrayIndex = 1;
-    reset();
-    
+
     highlightCurrentPlanet();
 
     $("#winCount").html(winCount);
@@ -257,9 +249,10 @@ $("#resetButton").on("click", function () {
     $("#totalScore").removeClass("d-none");
     $("#currentPlanet").removeClass("d-none");
     $("#nextPlanet").removeClass("moveRocketPerson");
+    $("#rocket").removeClass("d-none");
 
-    location.reload();
+    reset();
 })
 
-
+});
 
