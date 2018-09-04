@@ -139,7 +139,6 @@ $(document).ready(function () {
         distanceBetweenPlanets = currentPlanetY - $("#nextPlanet").offset().top;
         newLocationOfRocket = currentPlanetY;
         $("#rocket").animate({ top: newLocationOfRocket }, "fast");
-        console.log(currentPlanetY + " " + newLocationOfRocket);
     }
 
     function highlightCurrentPlanet() {
